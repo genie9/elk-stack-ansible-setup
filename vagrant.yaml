@@ -1,0 +1,12 @@
+- name: hirvi-auto
+  size: 150GB
+  port: 1238
+  ip: 192.168.33.20
+  mem:  4048
+  cpus: 4
+- name: filebeat-auto
+  size: 20GB
+  port: 1237
+  ip: 192.168.33.21
+  mem:  1012
+  cpus: 1
