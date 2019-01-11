@@ -1,0 +1,31 @@
+---
+filebeat_version: 6.x
+filebeat_create_config: true
+
+filebeat_prospectors:
+  - type: log
+    tags: ["json"]
+    fields: {"log_type": "kong"}
+    paths:
+      - "{{ log_path }}"
+
+filebeat_output_elasticsearch_enabled: false
+filebeat_output_elasticsearch_hosts:
+  - "{{ elk_host }}:9200"
+
+filebeat_output_logstash_enabled: true
+filebeat_output_logstash_hosts:
+  - "{{ elk_host }}:5044"
+filebeat_output_logstash_username: elastic
+filebeat_output_logstash_password: changeme
+
+filebeat_enable_logging: true
+filebeat_log_level: debug
+filebeat_log_dir: /var/log/filebeat
+filebeat_log_filename: filebeat.log
+
+filebeat_ssl_dir: /etc/pki/logstash
+filebeat_ssl_certificate_authorities: "{{ filebeat_ssl_certificate_authorities }}"
+filebeat_ssl_certificate_file: "{{ filebeat_ssl_certificate_file }}"
+filebeat_ssl_key_file: "{{ filebeat_ssl_key_file }}"
+filebeat_ssl_insecure: "{{ filebeat_ssl_insecure }}"

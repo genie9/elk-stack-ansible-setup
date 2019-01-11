@@ -1,0 +1,15 @@
+output {
+  if [fields][log_type] == "beat_logs" {
+    elasticsearch {
+      action => "index"
+      hosts => {{ logstash_elasticsearch_hosts | to_json }}
+      index => "beat_logs-%{+YYYY.MM.dd}"
+    }
+  }
+  if [fields][log_type] == "kong" {
+    elasticsearch {
+      hosts => ["http://localhost:9200"]
+      index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
+    }
+  }
+}
