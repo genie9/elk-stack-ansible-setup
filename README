@@ -1,5 +1,9 @@
 This is a setup of an ELK-stack version 6.5 with Filebeat on separate virtual machines. Communication between Logstash and Filebeat servers is secured with ssl_certificates. In this setup the certificate authority is self generated.
 
+Vagrantfile needs plugins hostmanager and disksize to be installed:
+$ vagrant plugin install vagrant-hostmanager
+$ vagrant plugin install vagrant-disksize
+
 Example
 CA authority:
 $ openssl genrsa -des3 -out files/certs/myCA.key 2048
@@ -15,3 +19,4 @@ Files with the most essential parameters:
     - names and ip addresses of the machines
   - configurations for ansible setup are in elk.yml
     - name of hosts have to mach with vagrantfile.yaml hosts
+ - roles/logstash/files/templates/kong_template.json for index    templating. Includes number of shards.

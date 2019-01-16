@@ -1,5 +1,5 @@
 - name: hirvi-auto
-  size: 150GB
+  size: 100GB
   port: 1238
   ip: 192.168.33.20
   mem:  4048

@@ -28,7 +28,7 @@
   roles:
     - role: filebeat
       vars:
-        log_path: "/var/log/apilogs/*.log.*"
+        log_path: "/var/log/apilogs/*.log*"
         elk_host: "hirvi-auto"
         filebeat_ssl_certificate_authorities: "files/certs/myCA.pem"
         filebeat_ssl_certificate_file: "files/certs/filebeat-auto.crt"

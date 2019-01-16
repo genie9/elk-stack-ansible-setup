@@ -12,15 +12,13 @@ input {
 }
 
 filter {
-  if [type] == "beats" {
-    if "json" in [tags] {
-      json {
-        source => "message"
-      }
-      date {
-        match => ["[message][started_at]", "UNIX_MS"]
-        target => "@timestamp"
-      }
+  if "json" in [tags] {
+    json {
+      source => "message"
+    }
+    date {
+      match => ["[started_at]", "UNIX_MS"]
+      target => "@timestamp"
     }
   }
 }

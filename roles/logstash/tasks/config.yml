@@ -42,3 +42,19 @@
     state: absent
   when: not logstash_monitor_local_syslog
   notify: restart logstash
+
+- name: Create template directory.
+  file:
+    path: /etc/logstash/templates
+    state: directory
+
+- name: Create Elasticsearch template.
+  copy:
+    src: "templates/{{ item }}"
+    dest: "/etc/logstash/templates/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - kong_template.json
+  notify: restart logstash
