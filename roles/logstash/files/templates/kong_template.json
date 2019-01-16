@@ -1,0 +1,28 @@
+{
+  "template" : "kong_template*",
+  "version" : 1001,
+  "index_patterns": ["filebeat*"],
+  "settings" : {
+    "index.refresh_interval" : "5s",
+    "number_of_shards" : 2
+  },
+  "mappings" : {
+    "doc": {
+      "date_detection": false,
+      "dynamic_templates": [
+      {
+        "dates": {
+          "match_mapping_type": "date",
+          "mapping": {
+            "type": "text"
+          }
+        }
+      }],
+      "properties": {
+        "started_at": {
+          "type":"date"
+        }
+      }
+    }
+  }
+}
