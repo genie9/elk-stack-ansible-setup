@@ -1,28 +1,23 @@
+curl -XPUT "http://localhost:9200/_template/apilogs_template" -H "Content-Type: application/json" -d'
 {
-  "template" : "kong_template*",
   "version" : 1001,
-  "index_patterns": ["filebeat*"],
+  "index_patterns": ["apilogs*"],
   "settings" : {
     "index.refresh_interval" : "5s",
-    "number_of_shards" : 2
+    "number_of_shards" : 1,
+    "number_of_replicas": 0
   },
   "mappings" : {
-    "doc": {
+    "kong": {
       "date_detection": false,
-      "dynamic_templates": [
-      {
-        "dates": {
-          "match_mapping_type": "date",
-          "mapping": {
-            "type": "text"
-          }
-        }
-      }],
       "properties": {
         "started_at": {
+          "type":"date"
+        },
+        "@timestamp": {
           "type":"date"
         }
       }
     }
   }
-}
+}'
