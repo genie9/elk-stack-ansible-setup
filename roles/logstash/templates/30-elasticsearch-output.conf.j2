@@ -1,5 +1,4 @@
 output {
-
   if [fields][log_type] == "beat_logs" {
     elasticsearch {
       action => "index"
