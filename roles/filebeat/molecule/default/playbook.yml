@@ -23,6 +23,6 @@
 
   roles:
     - role: geerlingguy.java
-    - role: geerlingguy.elasticsearch
-    - role: geerlingguy.logstash
-    - role: geerlingguy.filebeat
+    - role: elasticsearch
+    - role: logstash
+    - role: filebeat

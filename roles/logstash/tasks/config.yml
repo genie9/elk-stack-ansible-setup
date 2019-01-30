@@ -13,17 +13,19 @@
 
 - name: Create Logstash filters.
   copy:
-    src: "filters/{{ item }}"
-    dest: "/etc/logstash/conf.d/{{ item }}"
+    src: "{{ item }}"
+    dest: "/etc/logstash/conf.d/"
     owner: root
     group: root
     mode: 0644
-  with_items:
-    - 10-syslog.conf
-    - 11-nginx.conf
-    - 12-apache.conf
-    - 14-solr.conf
-    - 15-drupal.conf
+  with_fileglob:
+    - "{{ logstash_filters_fileglob | default('') }}"
+  #with_items:
+  #  - 10-syslog.conf
+  #  - 11-nginx.conf
+  #  - 12-apache.conf
+  #  - 14-solr.conf
+  #  - 15-drupal.conf
   notify: restart logstash
 
 - name: Create Logstash configuration file for local syslog.
@@ -50,11 +52,15 @@
 
 - name: Create Elasticsearch template.
   copy:
-    src: "templates/{{ item }}"
-    dest: "/etc/logstash/templates/{{ item }}"
+    src: "{{ item }}"
+    dest: "/etc/logstash/templates/"
     owner: root
     group: root
     mode: 0644
-  with_items:
-    - kong_template.json
+  with_fileglob:
+    - "{{ logstash_templates_fileglob }}"
+  #with_items:
+  #  - hel_base.json
+  #  - apilogs_template.json
+  #  - varnish_template
   notify: restart logstash

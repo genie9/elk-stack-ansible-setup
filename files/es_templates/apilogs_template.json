@@ -1,0 +1,70 @@
+{
+  "version" : 1001,
+  "index_patterns": ["apilogs*"],
+  "settings" : {
+    "index.refresh_interval" : "5s",
+    "number_of_shards" : 1,
+    "number_of_replicas": 0
+  },
+  "mappings" : {
+    "_doc": {
+      "date_detection": false,
+      "dynamic_templates": [
+      {
+        "querystrings_to_keyword": {
+          "path_match": "request.querystring.*",
+          "mapping": {
+            "type": "keyword"
+          }
+        }
+      },
+      {
+        "string_to_keyword": {
+          "match_mapping_type": "string",
+          "mapping": {
+            "type": "keyword",
+            "norms":  false
+          }
+        }
+      },
+      {
+        "dates": {
+          "match":   "*_at",
+          "mapping": {
+            "type": "date"
+          }
+        }
+      },
+      {
+        "no_doc_values": {
+          "match":   "*",
+          "mapping": {
+            "doc_values": false
+          }
+        }
+      }],
+      "properties": {
+        "@timestamp": {
+          "type":"date"
+        },
+        "request": {
+          "properties": {
+            "size": {
+              "type": "integer"
+            }
+          }
+        },
+        "response": {
+          "properties": {
+            "size": {
+              "type": "integer"
+            }
+          }
+        },
+        "client_ip": {
+          "type":"ip"
+        }
+      }
+    }
+  }
+}'

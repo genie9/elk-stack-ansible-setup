@@ -1,19 +1,19 @@
 output {
-  if [fields][log_type] == "beat_logs" {
+  if [fields][log_type] == "hel_varnish" {
     elasticsearch {
       action => "index"
       hosts => {{ logstash_elasticsearch_hosts | to_json }}
-      index => "beat_logs-%{+YYYY.MM.dd}"
+      index => "hel_varnish-%{+YYYY.MM.dd}"
     }
   }
-  if [fields][log_type] == "kong" {
+  if [fields][log_type] == "apilogs" {
     elasticsearch {
       hosts => ["http://localhost:9200"]
-      index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
-      manage_template => true
-      template => "/etc/logstash/templates/kong_template.json"
-      template_name => "kong_template"
-      template_overwrite => true
+      index => "apilogs-%{+YYYY.MM.dd}"
+      #manage_template => true
+      #template => "/etc/logstash/templates/apilogs_template.json"
+      #template_name => "apilogs_template"
+      #template_overwrite => true
     }
   }
 }

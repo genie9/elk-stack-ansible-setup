@@ -11,18 +11,6 @@ input {
   }
 }
 
-filter {
-  if "json" in [tags] {
-    json {
-      source => "message"
-    }
-    date {
-      match => ["[started_at]", "UNIX_MS"]
-      target => "@timestamp"
-    }
-  }
-}
-
 output {
   file {
     path => "/tmp/logstash.log"

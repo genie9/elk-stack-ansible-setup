@@ -9,7 +9,7 @@
       when: ansible_os_family == 'Debian'
 
   roles:
-    - role: geerlingguy.kibana
+    - role: kibana
 
   post_tasks:
     - name: Ensure Kibana is running.

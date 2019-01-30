@@ -1,0 +1,31 @@
+{
+  "version" : 1001,
+  "index_patterns": ["hel_varnish*"],
+  "settings" : {
+    "index.refresh_interval" : "5s",
+    "number_of_shards" : 1,
+    "number_of_replicas": 0
+  },
+  "mappings" : {
+    "hel_varnish": {
+      "dynamic_templates": [
+      {
+        "string_to_keyword": {
+          "match_mapping_type": "string",
+          "mapping": {
+            "type": "keyword",
+            "norms": false
+            }
+          }
+        },
+      {
+        "no_doc_values": {
+          "match":   "*",
+          "mapping": {
+            "doc_values": false
+          }
+        }
+      }]
+    }
+  }
+}'

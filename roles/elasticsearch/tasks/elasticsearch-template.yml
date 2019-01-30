@@ -11,7 +11,8 @@
   copy: src={{ item }} dest=/etc/elasticsearch/templates owner={{ es_user }} group={{ es_group }}
   register: load_templates
   with_fileglob:
-    - "{{ es_templates_fileglob | default('') }}"
+    - "files/es_templates/*.json"
+    #- "{{ es_templates_fileglob | default('') }}"
 
 - name: Install templates without auth
   uri:
@@ -22,7 +23,8 @@
     body: "{{ lookup('file', item) }}"
   when: load_templates.changed and es_start_service and not es_enable_xpack or not es_xpack_features is defined or "security" not in es_xpack_features
   with_fileglob:
-    - "{{ es_templates_fileglob | default('') }}"
+    - "files/es_templates/*.json"
+    #- "{{ es_templates_fileglob | default('') }}"
   run_once: True
 
 - name: Install templates with auth
@@ -37,5 +39,6 @@
     body: "{{ lookup('file', item) }}"
   when: load_templates.changed and es_start_service and es_enable_xpack and es_xpack_features is defined and "security" in es_xpack_features
   with_fileglob:
-    - "{{ es_templates_fileglob | default('') }}"
+    - "files/es_templates/*.json"
+    #- "{{ es_templates_fileglob | default('') }}"
   run_once: True

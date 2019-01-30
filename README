@@ -19,4 +19,4 @@ Files with the most essential parameters:
     - names and ip addresses of the machines
   - configurations for ansible setup are in elk.yml
     - name of hosts have to mach with vagrantfile.yaml hosts
- - roles/logstash/files/templates/kong_template.json for index    templating. Includes number of shards.
+  - roles/elasticsearch/files/templates/*.json for index templating. Includes number of shards and replicas.

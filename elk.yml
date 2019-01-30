@@ -1,5 +1,7 @@
 - name: elasticsearch
-  hosts: hirvi-auto
+  hosts: 127.0.0.1
+  connection: local
+  #hosts: hirvi
   become: yes
   roles:
     - role: elasticsearch
@@ -8,29 +10,30 @@
         es_enable_xpack: true
         es_api_basic_auth_username: "elastic"
         es_api_basic_auth_password: "changeme"
+        es_templates_fileglob: "files/es_templates/*.json"
 
     - role: kibana
       vars:
-        kibana_config_template: kibana.yml.j2
-        kibana_config_file_path: /etc/kibana/kibana.yml
+        kibana_config_template: "kibana.yml.j2"
+        kibana_config_file_path: "/etc/kibana/kibana.yml"
         kibana_elasticsearch_username: es_api_basic_auth_username
         kibana_elasticsearch_password: es_api_basic_auth_password
 
     - role: logstash
       vars:
         filebeat_ssl_certificate_authorities: "files/certs/myCA.pem"
-        filebeat_ssl_certificate_file: "files/certs/filebeat-auto.crt"
+        filebeat_ssl_certificate_file: "files/certs/filebeat.crt"
         filebeat_ssl_key_file: "files/certs/filebeat.pk8.key"
 
 - name: filebeat
-  hosts: filebeat-auto
+  hosts: filebeat
   become: yes
   roles:
     - role: filebeat
       vars:
         log_path: "/var/log/apilogs/*.log*"
-        elk_host: "hirvi-auto"
+        elk_host: "hirvi"
         filebeat_ssl_certificate_authorities: "files/certs/myCA.pem"
-        filebeat_ssl_certificate_file: "files/certs/filebeat-auto.crt"
+        filebeat_ssl_certificate_file: "files/certs/filebeat.crt"
         filebeat_ssl_key_file: "files/certs/filebeat.pk8.key"
         filebeat_ssl_insecure: "false"
