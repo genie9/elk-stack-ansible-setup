@@ -1,4 +1,11 @@
 ---
+- name: Stop elasticsearch
+  become: true
+  service:
+    name: elasticsearch
+    state: stopped
+    enabled: true
+
 - name: Create Logstash configuration files.
   template:
     src: "{{ item }}.j2"
@@ -20,12 +27,6 @@
     mode: 0644
   with_fileglob:
     - "{{ logstash_filters_fileglob | default('') }}"
-  #with_items:
-  #  - 10-syslog.conf
-  #  - 11-nginx.conf
-  #  - 12-apache.conf
-  #  - 14-solr.conf
-  #  - 15-drupal.conf
   notify: restart logstash
 
 - name: Create Logstash configuration file for local syslog.
@@ -43,24 +44,12 @@
     path: /etc/logstash/conf.d/02-local-syslog-input.conf
     state: absent
   when: not logstash_monitor_local_syslog
-  notify: restart logstash
+  notify:
+    - restart logstash
 
-- name: Create template directory.
-  file:
-    path: /etc/logstash/templates
-    state: directory
-
-- name: Create Elasticsearch template.
-  copy:
-    src: "{{ item }}"
-    dest: "/etc/logstash/templates/"
-    owner: root
-    group: root
-    mode: 0644
-  with_fileglob:
-    - "{{ logstash_templates_fileglob }}"
-  #with_items:
-  #  - hel_base.json
-  #  - apilogs_template.json
-  #  - varnish_template
-  notify: restart logstash
+- name: Start elasticsearch
+  become: true
+  service:
+    name: elasticsearch
+    state: started
+    enabled: true

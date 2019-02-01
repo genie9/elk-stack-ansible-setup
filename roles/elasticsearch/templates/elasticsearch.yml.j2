@@ -78,9 +78,11 @@ xpack.notification.email:
 
 ################################ IP filtering #################################
 
+{% if xpack_ip_filtering and allowed_ip %}
 xpack.security.http.filter.enabled: True
-xpack.security.http.filter.allow: "192.168.33.11"
+xpack.security.http.filter.allow: {{ allowed_ip }}
 xpack.security.http.filter.deny: _all
 xpack.security.transport.filter.enabled: True
-xpack.security.transport.filter.allow: "192.168.33.11"
+xpack.security.transport.filter.allow: {{ allowed_ip }}
 xpack.security.transport.filter.deny: _all
+{% endif %}

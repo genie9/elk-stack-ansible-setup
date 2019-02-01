@@ -11,7 +11,7 @@ logstash_monitor_local_syslog: true
 
 logstash_dir: /usr/share/logstash
 
-logstash_templates_fileglob: "files/templates/*.json"
+es_templates_dir: "files/es_templates/"
 logstash_filters_fileglob: "files/filters/*.conf"
 
 logstash_ssl_dir: /etc/pki/logstash

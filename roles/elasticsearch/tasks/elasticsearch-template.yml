@@ -1,5 +1,4 @@
 ---
-
 - name: ensure templates dir is created
   file:
     path: /etc/elasticsearch/templates
@@ -11,25 +10,23 @@
   copy: src={{ item }} dest=/etc/elasticsearch/templates owner={{ es_user }} group={{ es_group }}
   register: load_templates
   with_fileglob:
-    - "files/es_templates/*.json"
-    #- "{{ es_templates_fileglob | default('') }}"
+    - "{{ es_templates_fileglob | default('') }}"
 
 - name: Install templates without auth
   uri:
-    url: "http://{{es_api_host}}:{{es_api_port}}/_template/{{item | filename}}"
+    url: "http://{{es_api_host}}:{{es_api_port}}/_template/{{ item | filename }}"
     method: PUT
     status_code: 200
     body_format: json
     body: "{{ lookup('file', item) }}"
   when: load_templates.changed and es_start_service and not es_enable_xpack or not es_xpack_features is defined or "security" not in es_xpack_features
   with_fileglob:
-    - "files/es_templates/*.json"
-    #- "{{ es_templates_fileglob | default('') }}"
+    - "{{ es_templates_fileglob | default('') }}"
   run_once: True
 
 - name: Install templates with auth
   uri:
-    url: "http://{{es_api_host}}:{{es_api_port}}/_template/{{item | filename}}"
+    url: "http://{{es_api_host}}:{{es_api_port}}/_template/{{ item | filename }}"
     method: PUT
     status_code: 200
     user: "{{es_api_basic_auth_username}}"
@@ -39,6 +36,5 @@
     body: "{{ lookup('file', item) }}"
   when: load_templates.changed and es_start_service and es_enable_xpack and es_xpack_features is defined and "security" in es_xpack_features
   with_fileglob:
-    - "files/es_templates/*.json"
-    #- "{{ es_templates_fileglob | default('') }}"
+    - "{{ es_templates_fileglob | default('') }}"
   run_once: True

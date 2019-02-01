@@ -16,6 +16,14 @@
     state: "{{ kibana_service_state }}"
     enabled: "{{ kibana_service_enabled }}"
 
+- name: Create logging directory.
+  file:
+    path: "{{ kibana_log_file | dirname }}"
+    state: directory
+    owner: kibana
+    group: kibana
+    mode: 0755
+
 - name: Copy Kibana configuration.
   template:
     src: "{{ kibana_config_template }}"

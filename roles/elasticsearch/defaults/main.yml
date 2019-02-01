@@ -1,12 +1,12 @@
 ---
 es_major_version: "6.x"
-es_version: "6.5.1"
+es_version: "6.6.0"
 es_use_snapshot_release: false
 es_enable_xpack: true
 es_package_name: "elasticsearch"
 es_version_lock: false
 es_use_repository: true
-#es_templates_fileglob: "files/templates/*.json"
+es_templates_fileglob: "files/templates/*.json"
 es_apt_key: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
 es_apt_url: "deb https://artifacts.elastic.co/packages/{{ es_repo_name }}/apt stable main"
 es_apt_url_old: "deb http://packages.elastic.co/elasticsearch/{{ es_repo_name }}/debian stable main"
@@ -16,7 +16,8 @@ update_java: false
 es_restart_on_change: true
 es_plugins_reinstall: false
 es_scripts: false
-es_templates: false
+es_templates: true
+es_heap_size: 1g
 es_user: elasticsearch
 es_group: elasticsearch
 es_config: {}
@@ -31,6 +32,7 @@ es_max_threads: "{{ 2048 if ( es_version | version_compare('6.0.0', '<')) else 8
 es_max_map_count: 262144
 es_allow_downgrades: false
 es_xpack_features: ["alerting","monitoring","graph","ml","security"]
+xpack_ip_filtering: false
 #These are used for internal operations performed by ansible.
 #They do not affect the current configuration
 es_api_host: "localhost"

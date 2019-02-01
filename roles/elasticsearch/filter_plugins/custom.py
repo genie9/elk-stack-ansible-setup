@@ -30,7 +30,9 @@ def extract_role_users(users={},exclude_users=[]):
     return role_users
 
 def filename(filename=''):
-    return os.path.splitext(os.path.basename(filename))[0]
+    name = os.path.splitext(os.path.basename(filename))[0]
+    print(name)
+    return name
 
 def remove_reserved(user_roles={}):
     not_reserved = []

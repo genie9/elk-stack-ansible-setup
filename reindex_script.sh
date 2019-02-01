@@ -11,6 +11,7 @@ reindex() {
     },
     "dest": {
       "index": "'"$1"'-'"$2"'"
+      "type": "_doc"
     }
   }'
 }

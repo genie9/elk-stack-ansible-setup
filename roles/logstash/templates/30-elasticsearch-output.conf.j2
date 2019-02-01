@@ -10,8 +10,9 @@ output {
     elasticsearch {
       hosts => ["http://localhost:9200"]
       index => "apilogs-%{+YYYY.MM.dd}"
+      document_type => "_doc"
       #manage_template => true
-      #template => "/etc/logstash/templates/apilogs_template.json"
+      #template => "{{ es_templates_dir }}apilogs_template.json"
       #template_name => "apilogs_template"
       #template_overwrite => true
     }

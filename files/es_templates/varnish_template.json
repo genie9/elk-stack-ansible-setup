@@ -7,7 +7,7 @@
     "number_of_replicas": 0
   },
   "mappings" : {
-    "hel_varnish": {
+    "_doc": {
       "dynamic_templates": [
       {
         "string_to_keyword": {
@@ -28,4 +28,4 @@
       }]
     }
   }
-}'
+}

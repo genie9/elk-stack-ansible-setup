@@ -2,7 +2,7 @@ require 'yaml'
 
 hosts = YAML.load_file('vagrant.yaml')
 
-system('openssl pkcs8 -topk8 -nocrypt -in ./files/certs/filebeat.key -out ./files/certs/filebeat.pk8.key')
+#system('openssl pkcs8 -topk8 -nocrypt -in ./files/certs/filebeat.key -out ./files/certs/filebeat.pk8.key')
 
 
 Vagrant.configure("2") do |config|

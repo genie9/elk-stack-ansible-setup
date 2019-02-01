@@ -1,4 +1,3 @@
-curl -XPUT "http://localhost:9200/_template/helsinki_base" -H "Content-Type: application/json" -d'
 {
   "version" : 1001,
   "index_patterns": ["*"],

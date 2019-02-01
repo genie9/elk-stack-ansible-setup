@@ -15,6 +15,7 @@ for i in $ind; do
       },
       "dest": {
         "index": "apilogs-'"$i"'"
+        "type": "_doc"
       }
     }'
   fi
