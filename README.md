@@ -3,9 +3,11 @@
 This is a setup of an ELK-stack version 6.6 with Filebeat on separate virtual machines. Communication between Logstash and Filebeat servers is secured with ssl_certificates. In this setup the certificate authority is self generated.
 
 ### Example
+
 **CA authority:**
 $ openssl genrsa -des3 -out files/certs/myCA.key 2048
 $ openssl req -x509 -new -nodes -key files/certs/myCA.key -sha256 -days 1825 -out files/certs/myCA.pem
+
 **Self signed certificate:**
 The CN of certificate must match the name of ELK host.
 $ openssl genrsa -out files/certs/filebeat.key 2048
