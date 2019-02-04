@@ -5,9 +5,10 @@ This is a setup of an ELK-stack version 6.6 with Filebeat on separate virtual ma
 ### Example
 
 **CA authority:**
+```
 $ openssl genrsa -des3 -out files/certs/myCA.key 2048
 $ openssl req -x509 -new -nodes -key files/certs/myCA.key -sha256 -days 1825 -out files/certs/myCA.pem
-
+```
 **Self signed certificate:**
 
 The CN of certificate must match the name of ELK host.
@@ -18,10 +19,12 @@ $ openssl x509 -req -in files/certs/filebeat.csr -CA files/certs/myCA.pem -CAkey
 ```
 
 ### Vagrant
+
 Vagrantfile needs plugins hostmanager and disksize to be installed:
+```
 $ vagrant plugin install vagrant-hostmanager
 $ vagrant plugin install vagrant-disksize
-
+```
 Configurations for Vagrantfile are in vagrantfile.yaml. Contains names and ip addresses of the virtual machines
 
 ### Ansible
