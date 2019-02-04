@@ -1,4 +1,4 @@
-# Elk-stack anf filebeat vagrant-ansible setup
+# Elk-stack and Filebeat vagrant-ansible setup
 
 This is a setup of an ELK-stack version 6.6 with Filebeat on separate virtual machines. Communication between Logstash and Filebeat servers is secured with ssl_certificates. In this setup the certificate authority is self generated.
 
@@ -21,4 +21,4 @@ Configurations for Vagrantfile are in vagrantfile.yaml. Contains names and ip ad
 
 ### Ansible
   Configurations for ansible setup are in elk.yml. Contains names of hosts which have to mach with vagrantfile.yaml hosts.
-  Index templates arevlocated in roles/elasticsearch/files/templates/*.json. Includes number of shards and replicas.
+  Index templates arevlocated in *roles/elasticsearch/files/templates/\*.json*. Includes number of shards and replicas.
