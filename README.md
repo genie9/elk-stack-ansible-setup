@@ -9,10 +9,13 @@ $ openssl genrsa -des3 -out files/certs/myCA.key 2048
 $ openssl req -x509 -new -nodes -key files/certs/myCA.key -sha256 -days 1825 -out files/certs/myCA.pem
 
 **Self signed certificate:**
+
 The CN of certificate must match the name of ELK host.
+```
 $ openssl genrsa -out files/certs/filebeat.key 2048
 $ openssl req -new -key files/certs/filebeat.key -out files/certs/filebeat.csr
 $ openssl x509 -req -in files/certs/filebeat.csr -CA files/certs/myCA.pem -CAkey files/certs/myCA.key -CAcreateserial -out files/certs/filebeat.crt -days 1825 -sha256
+```
 
 ### Vagrant
 Vagrantfile needs plugins hostmanager and disksize to be installed:
